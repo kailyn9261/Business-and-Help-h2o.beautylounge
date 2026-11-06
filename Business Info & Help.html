@@ -1,0 +1,435 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business Info &amp; Help</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: system-ui, sans-serif;
+      max-width: 680px;
+      margin: 24px auto 40px;
+      padding: 0 16px;
+      background: #fff0f5;
+      color: #4a1d33;
+    }
+
+    /* ---- Tabs ---- */
+    .tabs {
+      display: flex;
+      gap: 4px;
+      justify-content: center;
+      border-bottom: 2px solid #f4c6d7;
+      margin-bottom: 24px;
+    }
+    .tab-btn {
+      padding: 12px 22px;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      background: none;
+      color: #8a5a70;
+      cursor: pointer;
+    }
+    .tab-btn:hover { color: #d6336c; background: #ffe4ee; }
+    .tab-btn.active { color: #d6336c; border-bottom-color: #d6336c; }
+    .tab-panel[hidden] { display: none; }
+
+    h1 { text-align: center; margin-bottom: 4px; }
+    .subtitle { text-align: center; color: #8a5a70; margin-top: 0; }
+
+    /* ---- Help Center tab ---- */
+    #search {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 1rem;
+      border: 1px solid #a96b86;
+      border-radius: 8px;
+      margin: 20px 0 12px;
+    }
+    #search:focus { outline: 2px solid #d6336c; border-color: transparent; }
+
+    .questions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .question-btn {
+      text-align: left;
+      padding: 14px 16px;
+      font-size: 1rem;
+      border: 1px solid #f4c6d7;
+      border-radius: 8px;
+      background: white;
+      color: #4a1d33;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .question-btn:hover { text-decoration: underline; background: #ffe4ee; border-color: #d6336c; }
+    .question-btn.active {
+      font-weight: 700;
+      background: #d6336c;
+      border-color: #d6336c;
+      color: white;
+    }
+
+    #answer {
+      margin-top: 20px;
+      background: white;
+      border: 1px solid #f4c6d7;
+      border-left: 4px solid #d6336c;
+      border-radius: 8px;
+      padding: 20px;
+      min-height: 80px;
+      line-height: 1.5;
+    }
+    #answer h2 { margin: 0 0 8px; font-size: 1.1rem; }
+    #answer p { margin: 0; }
+    #answer.placeholder { color: #8a5a70; border-left-color: #eab0c6; }
+
+    .no-results { color: #8a5a70; text-align: center; padding: 12px; }
+
+    .add-form {
+      margin-top: 28px;
+      background: white;
+      border: 1px solid #f4c6d7;
+      border-radius: 8px;
+      padding: 20px;
+    }
+    .add-form h2 { margin: 0 0 12px; font-size: 1.1rem; }
+    .add-form label { display: block; font-weight: 600; margin: 12px 0 4px; }
+    .add-form input,
+    .add-form textarea {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 1rem;
+      font-family: inherit;
+      border: 1px solid #a96b86;
+      border-radius: 6px;
+    }
+    .add-form input:focus,
+    .add-form textarea:focus { outline: 2px solid #d6336c; border-color: transparent; }
+    .add-form textarea { min-height: 90px; resize: vertical; }
+    .form-error { color: #b91c1c; margin: 8px 0 0; min-height: 1.2em; }
+    .add-form button {
+      margin-top: 8px;
+      padding: 10px 18px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      background: #d6336c;
+      color: white;
+      cursor: pointer;
+    }
+    .add-form button:hover { background: #b02a5b; }
+    .remove-btn {
+      margin-top: 14px;
+      padding: 6px 12px;
+      font-size: 0.9rem;
+      border: 1px solid #b91c1c;
+      border-radius: 6px;
+      background: white;
+      color: #b91c1c;
+      cursor: pointer;
+    }
+    .remove-btn:hover { background: #fef2f2; }
+
+    /* ---- About tab ---- */
+    header { text-align: center; margin-bottom: 24px; }
+    header h1 { margin: 0 0 4px; }
+    .tagline { color: #8a5a70; margin: 0; font-size: 1.1rem; }
+
+    section {
+      background: white;
+      border: 1px solid #f4c6d7;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    section h2 { margin: 0 0 12px; font-size: 1.15rem; }
+    section p { margin: 0; line-height: 1.6; }
+
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #fbe0ea;
+    }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-row .day { font-weight: 600; }
+
+    .contact-row { padding: 6px 0; }
+    .contact-row .label { font-weight: 600; display: inline-block; margin-right: 8px; }
+    .contact-row a { color: #d6336c; text-decoration: none; }
+    .contact-row a:hover { text-decoration: underline; }
+
+    ul.services { margin: 0; padding-left: 20px; line-height: 1.8; }
+
+    /* ---- Shared footer buttons ---- */
+    .footer {
+      margin-top: 24px;
+      text-align: center;
+      color: #8a5a70;
+    }
+    .link-btn {
+      margin-top: 8px;
+      padding: 10px 18px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      background: #d6336c;
+      color: white;
+      cursor: pointer;
+    }
+    .link-btn:hover { background: #b02a5b; }
+  </style>
+</head>
+<body>
+  <!-- ================= HELP CENTER TAB ================= -->
+  <div class="tab-panel" id="tab-help" role="tabpanel" hidden>
+    <h1>Help Center</h1>
+    <p class="subtitle">Select a question to see the answer.</p>
+
+    <input id="search" type="text" placeholder="Search questions..." oninput="filterQuestions()">
+
+    <div class="questions" id="questions"></div>
+
+    <div id="answer" class="placeholder">Pick a question above to see its answer.</div>
+
+    <div class="add-form">
+      <h2>Add a new FAQ</h2>
+      <label for="new-question">Question</label>
+      <input id="new-question" type="text" placeholder="e.g. Do you offer gift cards?" maxlength="200" onkeydown="if (event.key === 'Enter') addFaq()">
+      <label for="new-answer">Answer</label>
+      <textarea id="new-answer" placeholder="Type the answer here..." maxlength="1000"></textarea>
+      <div class="form-error" id="form-error"></div>
+      <button type="button" onclick="addFaq()">Add FAQ</button>
+    </div>
+
+    <div class="footer">
+      <button class="link-btn" onclick="switchTab('about')">About Us</button>
+    </div>
+  </div>
+
+  <!-- ================= ABOUT US TAB ================= -->
+  <div class="tab-panel" id="tab-about" role="tabpanel">
+    <header>
+      <h1 id="biz-name"></h1>
+      <p class="tagline" id="biz-tagline"></p>
+    </header>
+
+    <section>
+      <h2>What We Offer</h2>
+      <ul class="services" id="biz-services"></ul>
+    </section>
+
+    <section>
+      <h2>Contact &amp; Location</h2>
+      <div id="biz-contact"></div>
+    </section>
+
+    <div class="footer">
+      <div>Have a question?</div>
+      <button class="link-btn" onclick="switchTab('help')">Visit the Help Center</button>
+    </div>
+  </div>
+
+  <script>
+    // ================= TABS =================
+    function switchTab(name) {
+      ['help', 'about'].forEach(t => {
+        document.getElementById('tab-' + t).hidden = (t !== name);
+      });
+      window.scrollTo(0, 0);
+    }
+
+    // ================= BUSINESS INFO =================
+    // Edit this object with your real business details.
+    const business = {
+      name: "H2O.Beauty.Lounge",
+      tagline: "Minimal | Clean | Glow",
+      description: "Manicures and pedicures in Los Angeles. DM us on Instagram to book.",
+      services: [
+        "Manicures",
+        "Pedicures",
+        "Permanent Makeup & Tattoo"
+      ],
+      hours: [
+        { day: "Monday", time: "9:00 AM - 5:00 PM" },
+        { day: "Tuesday", time: "9:00 AM - 5:00 PM" },
+        { day: "Wednesday", time: "9:00 AM - 5:00 PM" },
+        { day: "Thursday", time: "9:00 AM - 5:00 PM" },
+        { day: "Friday", time: "9:00 AM - 5:00 PM" },
+        { day: "Saturday", time: "Closed" },
+        { day: "Sunday", time: "Closed" }
+      ],
+      contact: {
+        address: "16719 Celtic St.",
+        phone: "(626) 742-4585",
+        instagram: "h2o.beautylounge",
+        tiktok: "h2o.nails.beauty.lounge"
+      }
+    };
+
+    function renderBusiness() {
+      document.title = business.name;
+      document.getElementById('biz-name').textContent = business.name;
+      document.getElementById('biz-tagline').textContent = business.tagline;
+
+      const servicesEl = document.getElementById('biz-services');
+      business.services.forEach(s => {
+        const li = document.createElement('li');
+        li.textContent = s;
+        servicesEl.appendChild(li);
+      });
+
+      const contactEl = document.getElementById('biz-contact');
+      addContactRow(contactEl, 'Address', business.contact.address);
+      addContactRow(contactEl, 'Book an Appointment at',business.contact.phone, 'tel:' + business.contact.phone.replace(/[^\d+]/g, ''));
+      addContactRow(contactEl, 'Instagram', '@' + business.contact.instagram, 'https://www.instagram.com/' + business.contact.instagram + '/');
+      addContactRow(contactEl, 'TikTok', '@' + business.contact.tiktok, 'https://www.tiktok.com/@' + business.contact.tiktok);
+    }
+
+    function addContactRow(parent, label, value, href) {
+      const row = document.createElement('div');
+      row.className = 'contact-row';
+      const l = document.createElement('span');
+      l.className = 'label';
+      l.textContent = label;
+      row.appendChild(l);
+      if (href) {
+        const a = document.createElement('a');
+        a.href = href;
+        a.textContent = value;
+        row.appendChild(a);
+      } else {
+        row.appendChild(document.createTextNode(value));
+      }
+      parent.appendChild(row);
+    }
+
+    // ================= FAQS =================
+    // The FAQ list starts empty. FAQs added through the form are stored here.
+    const faqs = [];
+
+    const questionsEl = document.getElementById('questions');
+    const answerEl = document.getElementById('answer');
+    let activeIndex = null;
+
+    function renderQuestions(list) {
+      questionsEl.innerHTML = '';
+      if (list.length === 0) {
+        const msg = document.createElement('div');
+        msg.className = 'no-results';
+        msg.textContent = faqs.length === 0
+          ? 'No FAQs yet. Add the first one using the form below.'
+          : 'No matching questions found.';
+        questionsEl.appendChild(msg);
+        return;
+      }
+      list.forEach(({ faq, index }) => {
+        const btn = document.createElement('button');
+        btn.className = 'question-btn' + (index === activeIndex ? ' active' : '');
+        btn.textContent = faq.question;
+        btn.onclick = () => showAnswer(index);
+        questionsEl.appendChild(btn);
+      });
+    }
+
+    function showAnswer(index) {
+      activeIndex = index;
+      const faq = faqs[index];
+      answerEl.classList.remove('placeholder');
+      answerEl.innerHTML = '';
+      const h = document.createElement('h2');
+      h.textContent = faq.question;
+      const p = document.createElement('p');
+      p.textContent = faq.answer;
+      answerEl.append(h, p);
+      if (faq.custom) {
+        const rm = document.createElement('button');
+        rm.className = 'remove-btn';
+        rm.textContent = 'Remove this FAQ';
+        rm.onclick = () => removeFaq(index);
+        answerEl.appendChild(rm);
+      }
+      filterQuestions();
+    }
+
+    function filterQuestions() {
+      const term = document.getElementById('search').value.trim().toLowerCase();
+      const matches = faqs
+        .map((faq, index) => ({ faq, index }))
+        .filter(({ faq }) =>
+          faq.question.toLowerCase().includes(term) ||
+          faq.answer.toLowerCase().includes(term)
+        );
+      renderQuestions(matches);
+    }
+
+    // ---- User-added FAQs (saved in this browser) ----
+    const STORAGE_KEY = 'customFaqs';
+
+    function loadCustomFaqs() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveCustomFaqs() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(faqs.filter(f => f.custom)));
+      } catch (e) {
+        // Storage unavailable; FAQs will last for this session only.
+      }
+    }
+
+    function addFaq() {
+      const qInput = document.getElementById('new-question');
+      const aInput = document.getElementById('new-answer');
+      const errorEl = document.getElementById('form-error');
+      const question = qInput.value.trim();
+      const answer = aInput.value.trim();
+
+      if (!question || !answer) {
+        errorEl.textContent = '⚠ Please fill in both the question and the answer.';
+        return;
+      }
+      if (faqs.some(f => f.question.toLowerCase() === question.toLowerCase())) {
+        errorEl.textContent = '⚠ That question already exists.';
+        return;
+      }
+
+      errorEl.textContent = '';
+      faqs.push({ question, answer, custom: true });
+      saveCustomFaqs();
+      qInput.value = '';
+      aInput.value = '';
+      document.getElementById('search').value = '';
+      showAnswer(faqs.length - 1);
+    }
+
+    function removeFaq(index) {
+      faqs.splice(index, 1);
+      saveCustomFaqs();
+      activeIndex = null;
+      answerEl.classList.add('placeholder');
+      answerEl.textContent = 'Pick a question above to see its answer.';
+      filterQuestions();
+    }
+
+    // ================= INIT =================
+    loadCustomFaqs().forEach(f => faqs.push({ question: f.question, answer: f.answer, custom: true }));
+    renderBusiness();
+    filterQuestions();
+  </script>
+</body>
+</html>
+
+</body></html>
